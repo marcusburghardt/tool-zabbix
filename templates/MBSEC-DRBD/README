@@ -1,0 +1,32 @@
+#########
+This template was developed by Marcus Burghardt at MBSEC.
+
+It monitor the DRBD servives, their synchronizations status and their connections status.
+It was tested and homologated in CentOS7 and RHEL7, but is very possible to work well with other SystemD distros. Or you can easily adapt it.
+
+Installation:
+    1 - Import the XML to Zabbix.
+
+    2 - Adjust the SUDO permissions for Zabbix Agent user. This user will execute the commands at /etc/zabbix/scripts.
+    scp sudoers.d/mbsec_zabbix_drbd root@<drbd server>:/etc/sudoers.d/
+
+    3 - Send the files drbd_queryResource.py and drbd_resourceDiscovery.py to the monitored server, at /etc/zabbix/scripts:
+    scp zabbix_scripts/drbd_resourceDiscovery.py root@<brbd server>:/etc/zabbix/scripts/
+    scp zabbix_scripts/drbd_queryResource.py root@<drbd server>:/etc/zabbix/scripts/
+
+    4 - Send the file mbsec_drbd.conf to the monitored server, at /etc/zabbix/zabbix_agentd.d/
+    scp zabbix_agentd.d/mbsec_drbd.conf root@<drbd server>:/etc/zabbix/zabbix_agentd.d/
+
+    5 - Restart the zabbix-agent service
+    systemctl restart zabbix-agent
+
+    6 - Assign this tamplate to the monitored host.
+    7 - Wait some minutes and check the data.
+
+TIPS:
+To manually test, use this commands:
+1 - From Zabbix Agent host:
+zabbix_agentd -t mbsec.drbd.discovery
+
+2 - From Zabbix Server host:
+zabbix_get -s <drbd server> -p 10050 -k mbsec.drbd.discovery
