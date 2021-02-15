@@ -2,7 +2,7 @@
 This template was developed by Marcus Burghardt at MBSEC.
 
 It monitor the DRBD servives, their synchronizations status and their connections status.
-It was tested and homologated in CentOS7 and RHEL7, but is very possible to work well with other SystemD distros. Or you can easily adapt it.
+It was tested in CentOS7 and RHEL7, but is very possible to work well with other SystemD distros. Or you can easily adapt it.
 
 Installation:
     1 - Import the XML to Zabbix.
